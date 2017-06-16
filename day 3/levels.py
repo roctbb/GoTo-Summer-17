@@ -38,7 +38,23 @@ input_stream = audio.open(
     input=True,
     frames_per_buffer=chunk_size)
 
+output_stream = audio.open(
+    format=f,
+    channels=channels,
+    rate=framerate,
+    output=True,
+    frames_per_buffer=chunk_size)
+
 while True:
+    data = b''
     data = record(input_stream, 0.5, framerate, sample_width, chunk_size)
-    l = level(data)
-    print(l)
+    if level(data) > 1500:
+        print("start recording")
+        data += record(input_stream, 10, framerate, sample_width, chunk_size)
+        input_stream.stop_stream()
+
+        output_stream.write(data)
+        input_stream.start_stream()
+        print("stop recording")
+
+
