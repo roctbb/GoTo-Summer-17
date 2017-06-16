@@ -6,7 +6,7 @@ channels = 1
 chunk_size = 1024
 record_time = 10
 
-#создаем pyaudio и узнаем формат данных по глубине
+# создаем pyaudio и узнаем формат данных по глубине
 audio = pyaudio.PyAudio()
 f = audio.get_format_from_width(sample_width)
 
@@ -19,7 +19,7 @@ input_stream = audio.open(
 
 data = b''
 
-for i in range(record_time*framerate//chunk_size):
+for i in range(record_time * framerate // chunk_size):
     new_data = input_stream.read(chunk_size)
     data = data + new_data
 
@@ -32,9 +32,3 @@ audiofile.setnchannels(channels)
 audiofile.setframerate(framerate)
 
 audiofile.writeframes(data)
-
-
-
-
-
-
