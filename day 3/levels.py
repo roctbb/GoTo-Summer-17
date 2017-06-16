@@ -4,9 +4,8 @@ import struct
 
 
 # запись звука time секунд
-def record(stream, time, framerate, sample_width, chunk_size):
+def record(stream, time, framerate, chunk_size):
     data = b''
-    # записали полсекунды звука
     for i in range(int(time * framerate / chunk_size)):
         chunk_data = stream.read(chunk_size)
         data = data + chunk_data
@@ -47,10 +46,10 @@ output_stream = audio.open(
 
 while True:
     data = b''
-    data = record(input_stream, 0.5, framerate, sample_width, chunk_size)
+    data = record(input_stream, 0.5, framerate, chunk_size)
     if level(data) > 1500:
         print("start recording")
-        data += record(input_stream, 10, framerate, sample_width, chunk_size)
+        data += record(input_stream, 10, framerate, chunk_size)
         input_stream.stop_stream()
 
         output_stream.write(data)
