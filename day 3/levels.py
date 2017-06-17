@@ -19,6 +19,10 @@ def level(data):
     average = sum(list(map(abs, frames))) // n
     return average
 
+def pitch(data):
+
+    return data
+
 
 sample_width = 2
 framerate = 44100
@@ -50,6 +54,7 @@ while True:
     if level(data) > 1500:
         print("start recording")
         data += record(input_stream, 10, framerate, chunk_size)
+        data = pitch(data)
         input_stream.stop_stream()
 
         output_stream.write(data)
