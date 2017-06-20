@@ -1,5 +1,4 @@
 import random
-
 import telebot
 
 token = "322921279:AAEOFAsRz9jg3mImCzjrZzB1vS7HWpzA-p4"
