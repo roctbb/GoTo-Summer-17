@@ -26,6 +26,7 @@ routes = [
         (r"/", MainHandler),
         (r"/hello", HelloHandler),
         (r"/money", FormHandler),
+        (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': 'static'}),
 ]
 
 app = tornado.web.Application(routes, debug=True)
