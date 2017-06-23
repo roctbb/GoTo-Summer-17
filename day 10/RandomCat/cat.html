@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="jumbotron" style="margin-top: 50px;">
+            <h3>{{cat['name']}}</h3>
+            <p>
+                <img src="{{cat['photo']}}" style="width: 80%;"/>
+            </p>
+            <p>
+            <h4>{{cat['likes']}}&nbsp;
+                <a href="/like?id={{ str( cat['_id'] ) }}">
+                    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                </a>
+            </h4>
+            </p>
+        </div>
+        {% for comment in cat['comments'] %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p><b>Автор:</b> {{comment['email']}}</p>
+                <p><b>текст:</b> {{comment['text']}}</p>
+            </div>
+        </div>
+        {% end %}
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form action="/?id={{cat['_id']}}" method="post">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" name="email" id="exampleInputEmail1"
+                               placeholder="Email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="text">Комментарий</label>
+                        <textarea id="text" class="form-control" name="text" required>
+
+                        </textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+</body>
+</html>
