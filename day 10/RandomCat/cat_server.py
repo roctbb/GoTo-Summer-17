@@ -9,6 +9,17 @@ database = client["goto_summer_cats"]
 cats_collection = database["cats"]
 
 
+class AddHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('add.html')
+    def post(self):
+        name = self.get_argument("name")
+        photo = self.get_argument("photo")
+
+        cat = {"name": name, "photo": photo, "likes": 0, "comments": []}
+        cats_collection.insert(cat)
+        self.redirect('/?id='+str(cat['_id']))
+
 class LikeHandler(tornado.web.RequestHandler):
     def get(self):
         id = self.get_argument('id', '')
@@ -42,7 +53,8 @@ class MainHandler(tornado.web.RequestHandler):
 
 routes = [
     (r"/", MainHandler),
-    (r"/like", LikeHandler)
+    (r"/like", LikeHandler),
+    (r"/add", AddHandler)
 ]
 
 app = tornado.web.Application(routes, debug=True)
